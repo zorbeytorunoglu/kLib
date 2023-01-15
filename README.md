@@ -6,6 +6,8 @@ As you are aware of benefits of Kotlin over Java, especially considering perform
 
 NOTE: If you want to use the suspending functions, you need __"KotlinX Coroutines"__ as well.
 
+__[Short YouTube video for "kLib" task chain system example](https://www.youtube.com/watch?v=_nng2xyOW-g)__
+
 Documentation will be prepared after further adjustments.
 
 __If you need anything or have any questions, please don't hesitate to open an issue or contact me via Discord: >>TheLegend<<#6052__
