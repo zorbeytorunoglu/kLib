@@ -8,7 +8,7 @@ plugins {
 }
 
 val projectGroup = "com.zorbeytorunoglu"
-val projectVersion = "0.0.1"
+val projectVersion = "0.0.2"
 
 group = projectGroup
 version = projectVersion
@@ -22,6 +22,7 @@ repositories {
 
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
+    implementation(kotlin("stdlib-jdk8"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
 
@@ -34,9 +35,21 @@ tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
 }
 
+tasks {
+
+    compileKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+    }
+
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+    }
+
+}
+
 publishing {
     publications {
-        create<MavenPublication>("main") {
+        create<MavenPublication>("maven") { //main
             group = projectGroup
             version = projectVersion
             artifactId = "kLib"
