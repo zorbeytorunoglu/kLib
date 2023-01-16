@@ -40,7 +40,6 @@ Kotlin "stdlib" and Coroutines are already implemented. So, if you have "kLib" i
 
 ```groovy
 repositories {
-    ...
     maven { url 'https://jitpack.io' }
 }
 dependencies {
