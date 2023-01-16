@@ -2,37 +2,28 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.8.0"
-    java
-    idea
+    id("java")
     `maven-publish`
+    id ("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
-val projectGroup = "com.zorbeytorunoglu"
-val projectVersion = "0.0.2"
-
-group = projectGroup
-version = projectVersion
+group = "com.zorbeytorunoglu"
+version = "0.0.3"
 
 repositories {
     mavenCentral()
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-    maven("https://oss.sonatype.org/content/repositories/snapshots")
-    maven("https://oss.sonatype.org/content/repositories/central")
+    maven {
+        url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    }
+    maven {
+        url = uri("https://oss.sonatype.org/content/repositories/snapshots")
+    }
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-}
-
-java {
-    withSourcesJar()
-}
-
-tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = "1.8"
-    kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+    compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
 }
 
 tasks {
@@ -41,28 +32,20 @@ tasks {
         kotlinOptions.jvmTarget = "1.8"
     }
 
-    compileTestKotlin {
-        kotlinOptions.jvmTarget = "1.8"
-    }
+}
 
+tasks.shadowJar.configure {
+    archiveClassifier.set("")
 }
 
 publishing {
     publications {
-        create<MavenPublication>("maven") { //main
-            group = projectGroup
-            version = projectVersion
+        create<MavenPublication>("maven") {
+            groupId = "com.zorbeytorunoglu"
             artifactId = "kLib"
+            version = "0.0.3"
 
-            from(components["kotlin"])
-            artifact(tasks["sourcesJar"])
+            from(components["java"])
         }
-    }
-}
-
-idea {
-    module {
-        isDownloadSources = true
-        isDownloadJavadoc = true
     }
 }
