@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.21"
+    kotlin("jvm") version "1.8.0"
     java
     idea
     `maven-publish`
@@ -24,7 +24,6 @@ dependencies {
     testImplementation(kotlin("test"))
 
     compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
-    compileOnly("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
