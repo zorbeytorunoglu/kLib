@@ -21,19 +21,12 @@ repositories {
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
-
     compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
-
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
 
 java {
     withSourcesJar()
-}
-
-tasks.test {
-    useJUnitPlatform()
 }
 
 tasks.withType<KotlinCompile>().configureEach {
