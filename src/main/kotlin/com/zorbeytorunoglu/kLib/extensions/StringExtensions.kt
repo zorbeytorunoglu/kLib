@@ -33,6 +33,10 @@ fun String.color(colorCode: Char): String {
     return ChatColor.translateAlternateColorCodes(colorCode, this)
 }
 
+val String.letters get(): String {
+    return this.filter { it.isLetter() }
+}
+
 val String.numbers get(): Int {
     return this.filter { it.isDigit() }.toInt()
 }
