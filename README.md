@@ -23,6 +23,10 @@ Kotlin "stdlib" and Coroutines are already implemented. So, if you have "kLib" i
         <id>jitpack.io</id>
         <url>https://jitpack.io</url>
     </repository>
+    <repository>
+        <id>spigot-repo</id>
+        <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+    </repository>
 </repositories>
 
 <dependencies>
@@ -49,6 +53,14 @@ Kotlin "stdlib" and Coroutines are already implemented. So, if you have "kLib" i
         <version>1.8.0</version>
         <scope>provided</scope>
     </dependency>
+
+    <!-- SpigotAPI -->
+    <dependency>
+        <groupId>org.spigotmc</groupId>
+        <artifactId>spigot-api</artifactId>
+        <version>1.8.8-R0.1-SNAPSHOT</version>
+        <scope>provided</scope>
+    </dependency>
 </dependencies>
 ```
 
@@ -56,9 +68,25 @@ Kotlin "stdlib" and Coroutines are already implemented. So, if you have "kLib" i
 
 ```groovy
 repositories {
-    maven { url 'https://jitpack.io' }
+    
+    maven {
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+
+        // As of Gradle 5.1, you can limit this to only those
+        // dependencies you expect from it
+        content {
+            includeGroup 'org.bukkit'
+            includeGroup 'org.spigotmc'
+        }
+    }
+
+    maven { url 'https://jitpack.io'}
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
+
 }
 dependencies {
+    
     compileOnly 'com.github.zorbeytorunoglu:kLib:[LATEST_VERSION_HERE]'
 
     // "kotlin-stdlib" also already implemented in "kLib", can be compiled only
@@ -67,6 +95,9 @@ dependencies {
     // Coroutine is needed for suspending functions and already implemented in "kLib", can be compiled only
     compileOnly 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 
+    // Spigot API
+    compileOnly 'org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT'
+    
 }
 ```
 
@@ -75,7 +106,20 @@ dependencies {
 ```groovy
 repositories {
     mavenCentral()
+    mavenLocal()
     maven("https://jitpack.io")
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    /*
+     As Spigot-API depends on the BungeeCord ChatComponent-API,
+    we need to add the Sonatype OSS repository, as Gradle,
+    in comparison to maven, doesn't want to understand the ~/.m2
+    directory unless added using mavenLocal(). Maven usually just gets
+    it from there, as most people have run the BuildTools at least once.
+    This is therefore not needed if you're using the full Spigot/CraftBukkit,
+    or if you're using the Bukkit API.
+    */
+    maven("https://oss.sonatype.org/content/repositories/snapshots")
+    maven("https://oss.sonatype.org/content/repositories/central")
 }
 
 dependencies {
@@ -86,6 +130,9 @@ dependencies {
     
     // "kotlin-stdlib" also already implemented in "kLib", can be compiled only
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
+    
+    // SpigotAPI
+    compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
 }
 ```
 
@@ -93,3 +140,5 @@ __Don't forget to add "kLib" as a dependency in your "plugin.yml"__
 ```yaml
 depend: [kLib]
 ```
+
+Discord Server: 
