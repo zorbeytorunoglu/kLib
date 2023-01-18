@@ -8,6 +8,7 @@ import org.bukkit.Effect
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.Sound
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
@@ -88,3 +89,7 @@ suspend fun Entity.teleportAsync(mcPlugin: MCPlugin, entity: Entity) {
     }.join()
 
 }
+
+fun Player.sendMessage(messageList: Collection<String>) = messageList.forEach { this.sendMessage(it) }
+
+fun CommandSender.sendMessage(messageList: Collection<String>) = messageList.forEach { this.sendMessage(it) }
