@@ -141,4 +141,4 @@ __Don't forget to add "kLib" as a dependency in your "plugin.yml"__
 depend: [kLib]
 ```
 
-Discord Server: 
+Discord Server: https://discord.com/invite/dp3R6A9
