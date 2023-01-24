@@ -1,6 +1,8 @@
 package com.zorbeytorunoglu.kLib.extensions
 
 import org.bukkit.Material
+import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 
 var ItemMeta.loreString: String?
@@ -11,6 +13,22 @@ var ItemMeta.loreString: String?
 var ItemMeta.name: String?
     get() = if (hasDisplayName()) displayName else null
     set(value) { displayName = if (!value.isNullOrEmpty()) value else " " }
+
+fun ItemStack.removeAmount(player: Player, amount: Int) {
+
+    if (this.amount - amount <= 0) {
+        if (player.inventory.itemInHand.equals(this)) {
+            player.inventory.itemInHand = null
+        } else {
+            player.inventory.removeItem(this)
+        }
+        return
+    }
+
+    this.amount = this.amount-amount
+    player.updateInventory()
+
+}
 
 val Material.isPickaxe: Boolean get() = name.endsWith("_PICKAXE")
 val Material.isSword: Boolean get() = name.endsWith("_SWORD")
