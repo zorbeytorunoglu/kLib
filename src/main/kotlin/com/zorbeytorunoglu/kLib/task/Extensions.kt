@@ -41,7 +41,7 @@ suspend fun <T> MCPlugin.suspendFunctionAsyncWithResult(function: () -> T): T {
 
 }
 
-suspend fun <T> MCPlugin.suspendFunctionWithResult(function: () -> T, async: Boolean): T {
+suspend fun <T> MCPlugin.suspendFunctionWithResult(async: Boolean, function: () -> T): T {
 
     return Scopes.supervisorScope.async(MCDispatcher(this,async)) {
 
