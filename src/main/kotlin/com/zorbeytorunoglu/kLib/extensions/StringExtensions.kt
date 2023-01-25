@@ -1,5 +1,6 @@
 package com.zorbeytorunoglu.kLib.extensions
 
+import org.apache.maven.artifact.versioning.ComparableVersion
 import org.bukkit.ChatColor
 import java.security.MessageDigest
 import java.text.ParseException
@@ -96,3 +97,9 @@ fun String.dateInFormat(format: String): Date? {
     }
     return parsedDate
 }
+
+fun String.compareVersion(version: String): Int = ComparableVersion(this).compareTo(ComparableVersion(version))
+
+fun String.isVersionGreaterThan(version: String): Boolean = (ComparableVersion(this) > ComparableVersion(version))
+
+fun String.isVersionLessThan(version: String): Boolean = (ComparableVersion(this) < ComparableVersion(version))
