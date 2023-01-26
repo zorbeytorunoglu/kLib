@@ -2,6 +2,7 @@ package com.zorbeytorunoglu.kLib.extensions
 
 import org.bukkit.Bukkit
 import org.bukkit.Chunk
+import org.bukkit.Sound
 import org.bukkit.World
 
 fun World.removeEntities() = this.entities.forEach { it.remove() }
@@ -19,4 +20,10 @@ fun Chunk.fromString(string: String): Chunk? {
         null
     }
 
+}
+
+fun World.playSound(sound: Sound, volume: Float, pitch: Float) {
+    this.players.forEach {
+        it.playSound(sound, volume, pitch)
+    }
 }
