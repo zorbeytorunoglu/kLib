@@ -1,9 +1,12 @@
 package com.zorbeytorunoglu.kLib.extensions
 
+import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
+
 
 var ItemMeta.loreString: String?
     get() = lore?.joinToString("\n")
@@ -29,6 +32,78 @@ fun ItemStack.removeAmount(player: Player, amount: Int) {
     player.updateInventory()
 
 }
+
+fun ItemStack.setLore(vararg lore: String) {
+
+    val meta = (if (this.hasItemMeta()) this.itemMeta else Bukkit.getItemFactory().getItemMeta(this.type))
+
+    val colored = ArrayList<String>()
+
+    lore.forEach { colored.add(it.color) }
+
+    meta.lore = colored
+
+    this.itemMeta = meta
+
+}
+
+fun ItemStack.setLore(loreList: List<String>) {
+
+    val meta = (if (this.hasItemMeta()) this.itemMeta else Bukkit.getItemFactory().getItemMeta(this.type))
+
+    meta.lore = loreList
+
+    this.itemMeta = meta
+
+}
+
+fun ItemStack.addLore(vararg lore: String?) {
+
+    val meta = (if (this.hasItemMeta()) this.itemMeta else Bukkit.getItemFactory().getItemMeta(this.type))!!
+    var loreList = meta.lore
+
+    if (loreList == null) {
+        loreList = lore.asList()
+    } else {
+        loreList.addAll(lore.asList())
+    }
+    meta.lore = loreList
+    this.itemMeta = meta
+
+}
+
+fun ItemStack.addLore(lore: MutableList<String>) {
+
+    val meta = (if (this.hasItemMeta()) this.itemMeta else Bukkit.getItemFactory().getItemMeta(this.type))!!
+    var loreList = meta.lore
+
+    if (loreList == null) loreList = lore else loreList.addAll(lore)
+
+    meta.lore = loreList
+    this.itemMeta = meta
+
+}
+
+fun ItemStack.setEnchantment(enchantment: Enchantment, level: Int) {
+    val meta = (if (this.hasItemMeta()) this.itemMeta else Bukkit.getItemFactory().getItemMeta(this.type))!!
+    meta.addEnchant(enchantment, level, true)
+    this.itemMeta = meta
+}
+
+fun ItemStack.clearEnchantments() {
+    val meta = (if (this.hasItemMeta()) this.itemMeta else Bukkit.getItemFactory().getItemMeta(this.type))!!
+    for (enchantment in meta.enchants.keys) {
+        meta.removeEnchant(enchantment)
+    }
+    this.itemMeta = meta
+}
+
+fun ItemStack.removeEnchantment(enchantment: Enchantment) {
+    val meta = (if (this.hasItemMeta()) this.itemMeta else Bukkit.getItemFactory().getItemMeta(this.type))!!
+    meta.removeEnchant(enchantment)
+    this.itemMeta = meta
+}
+
 
 val Material.isPickaxe: Boolean get() = name.endsWith("_PICKAXE")
 val Material.isSword: Boolean get() = name.endsWith("_SWORD")
