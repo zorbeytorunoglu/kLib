@@ -10,6 +10,11 @@ class Resource: YamlConfiguration {
 
     val file: File
 
+    /**
+     * Creates a file in plugin's data folder or copies if a file with the same name exists in resources.
+     * @param plugin Plugin.
+     * @param name Name of the file with its extension (example: .yml).
+     */
     constructor(plugin: Plugin, name: String) {
         this.file = File(plugin.dataFolder, name)
         if (!file.parentFile.exists()) file.parentFile.mkdirs()
@@ -19,6 +24,11 @@ class Resource: YamlConfiguration {
         }
     }
 
+    /**
+     * Creates a file in the specified folder or copies if a file with the same name exists in resources.
+     * @param path Desired path of the file.
+     * @param fileName Name of the file with its extension (example: .yml).
+     */
     constructor(path: String, fileName: String) {
 
         this.file = File(path)
@@ -34,6 +44,10 @@ class Resource: YamlConfiguration {
         }
     }
 
+    /**
+     * Loads the file.
+     * @return Resource object.
+     */
     fun load(): Resource {
         try {
             super.load(file)
@@ -43,6 +57,10 @@ class Resource: YamlConfiguration {
         return this
     }
 
+    /**
+     * Saves the file.
+     * @return Resource object.
+     */
     fun save(): Resource {
         try {
             super.save(file)

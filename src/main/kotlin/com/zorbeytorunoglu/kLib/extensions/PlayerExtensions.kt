@@ -140,8 +140,6 @@ fun Player.feed() {
     this.foodLevel = 20
 }
 
-
-
 fun Player.sendMessage(messageList: Collection<String>) = messageList.forEach { this.sendMessage(it) }
 
 fun CommandSender.sendMessage(messageList: Collection<String>) = messageList.forEach { this.sendMessage(it) }
