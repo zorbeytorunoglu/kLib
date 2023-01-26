@@ -3,15 +3,15 @@ package com.zorbeytorunoglu.kLib.extensions
 import com.zorbeytorunoglu.kLib.MCPlugin
 import com.zorbeytorunoglu.kLib.task.MCDispatcher
 import com.zorbeytorunoglu.kLib.task.Scopes
-import kotlinx.coroutines.*
-import org.bukkit.Effect
-import org.bukkit.Location
-import org.bukkit.Material
-import org.bukkit.Sound
+import kotlinx.coroutines.launch
+import org.bukkit.*
+import org.bukkit.block.Block
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import java.util.*
+
 
 fun Player.isInside(playerLocation: Location, location1: Location, location2: Location): Boolean {
 
@@ -90,6 +90,64 @@ suspend fun Entity.teleportAsync(mcPlugin: MCPlugin, entity: Entity) {
 
 }
 
+fun Player.ban(reason: String) {
+    this.kickPlayer(reason)
+    Bukkit.getBanList(BanList.Type.NAME).addBan(this.name, reason, null, null)
+}
+
+fun Player.ban(reason: String, source: String) {
+    this.kickPlayer(reason)
+    Bukkit.getBanList(BanList.Type.NAME).addBan(this.name, reason, null, source)
+}
+
+fun Player.ban(reason: String, source: String, expiration: Date) {
+    this.kickPlayer(reason)
+    Bukkit.getBanList(BanList.Type.NAME).addBan(this.name, reason, expiration, source)
+}
+
+fun Player.ban(reason: String?, expiration: Date) {
+    this.kickPlayer(reason)
+    Bukkit.getBanList(BanList.Type.NAME).addBan(this.name, reason, expiration, null)
+}
+
+fun Player.banIP(reason: String?) {
+    this.kickPlayer(reason)
+    if (this.address != null) {
+        Bukkit.getBanList(BanList.Type.IP).addBan(this.address.address.hostAddress, reason, null, null)
+    }
+}
+
+fun Player.banIP(reason: String?, source: String?) {
+    this.kickPlayer(reason)
+    if (this.address != null) {
+        Bukkit.getBanList(BanList.Type.IP).addBan(this.address.address.hostAddress, reason, null, source)
+    }
+}
+
+fun Player.banIP(reason: String?, source: String?, expiration: Date?) {
+    this.kickPlayer(reason)
+    if (this.address != null) {
+        Bukkit.getBanList(BanList.Type.IP).addBan(this.address.address.hostAddress, reason, expiration, source)
+    }
+}
+
+fun Player.heal() {
+    this.health = 20.0
+    this.foodLevel = 20
+}
+
+fun Player.feed() {
+    this.foodLevel = 20
+}
+
+
+
 fun Player.sendMessage(messageList: Collection<String>) = messageList.forEach { this.sendMessage(it) }
 
 fun CommandSender.sendMessage(messageList: Collection<String>) = messageList.forEach { this.sendMessage(it) }
+
+fun Player.getBlockBelow(): Block = this.location.subtract(0.0, 1.0, 0.0).block
+
+fun Player.kill() {
+    player.health = 0.0
+}
