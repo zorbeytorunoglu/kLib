@@ -8,6 +8,9 @@ import org.bukkit.scheduler.BukkitTask
 import java.lang.Runnable
 import kotlin.coroutines.CoroutineContext
 
+/**
+ * Kotlin Coroutine Dispatcher for Bukkit
+ */
 @OptIn(InternalCoroutinesApi::class)
 class MCDispatcher(private val plugin: MCPlugin, private val async: Boolean = false) : CoroutineDispatcher(), Delay {
 
