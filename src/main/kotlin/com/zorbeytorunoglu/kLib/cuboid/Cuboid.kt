@@ -7,7 +7,11 @@ import org.bukkit.entity.Player
 import java.util.*
 import kotlin.math.abs
 
-
+/**
+ * Creates a Cuboid object symbolizes a cuboid region with two location points.
+ * @param point1 First point location
+ * @param point2 Second point location
+ */
 open class Cuboid(val point1: Location, val point2: Location) {
 
     private val xMin = point1.blockX.coerceAtMost(point2.blockX)
@@ -24,6 +28,9 @@ open class Cuboid(val point1: Location, val point2: Location) {
     private val zMaxCentered = zMax + 0.5
     private val world: World = point1.world
 
+    /**
+     * Gets the array list of blocks in this cuboid region.s
+     */
     val blockList: ArrayList<Block> get() {
 
         val blockList: ArrayList<Block> = ArrayList(totalBlockSize)
@@ -41,6 +48,9 @@ open class Cuboid(val point1: Location, val point2: Location) {
 
     }
 
+    /**
+     * Gets the center location of the cuboid region.
+     */
     val center: Location get() {
         return Location(
             world,
@@ -50,16 +60,34 @@ open class Cuboid(val point1: Location, val point2: Location) {
         )
     }
 
+    /**
+     * Gets the distance between to points of the cuboid.
+     */
     val distance: Double get() = point1.distance(point2)
 
+    /**
+     * Gets the squared distance of two points of the cuboid region.
+     */
     val distanceSquared: Double get() = point1.distanceSquared(point2)
 
+    /**
+     * Gets the total block size of the cuboid region.
+     */
     val totalBlockSize: Int get() = height * xWidth * zWidth
 
+    /**
+     * Gets the width of X.
+     */
     val xWidth: Int get() = xMax - xMin +1
 
+    /**
+     * Gets the width of Z.
+     */
     val zWidth: Int get() = zMax - zMin + 1
 
+    /**
+     * Gets a random location in the cuboid region.
+     */
     val randomLocation: Location get() {
         val rand = Random()
         val x: Int = rand.nextInt(abs(xMax - xMin) + 1) + xMin
@@ -68,17 +96,36 @@ open class Cuboid(val point1: Location, val point2: Location) {
         return Location(world, x.toDouble(), y.toDouble(), z.toDouble())
     }
 
+    /**
+     * Gets the height of the cuboid.
+     */
     val height: Int get() = yMax - yMin + 1
 
+    /**
+     * Checks if the given location is in the cuboid.
+     * @param loc Location
+     * @return Boolean
+     */
     fun isIn(loc: Location): Boolean {
         return loc.world === world && loc.blockX >= xMin && loc.blockX <= xMax && loc.blockY >= yMin && loc.blockY <= yMax && loc
             .blockZ >= zMin && loc.blockZ <= zMax
     }
 
+    /**
+     * Checks if the player is in the cuboid.
+     * @param player Player
+     * @return Boolean
+     */
     fun isIn(player: Player): Boolean {
         return isIn(player.location)
     }
 
+    /**
+     * Checks if given location is in the cuboid with marge option.
+     * @param loc Location
+     * @param marge Marge boolean
+     * @return Boolean
+     */
     fun isInWithMarge(loc: Location, marge: Double): Boolean {
         return loc.world === world && loc.x >= xMinCentered - marge && loc.x <= xMaxCentered + marge && loc.y >= yMinCentered - marge && loc
             .y <= yMaxCentered + marge && loc.z >= zMinCentered - marge && loc.z <= zMaxCentered + marge
