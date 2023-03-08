@@ -5,6 +5,7 @@ import com.zorbeytorunoglu.kLib.task.MCDispatcher
 import com.zorbeytorunoglu.kLib.task.Scopes
 import com.zorbeytorunoglu.kLib.task.suspendFunctionSync
 import kotlinx.coroutines.launch
+import org.bukkit.Bukkit
 import org.bukkit.Effect
 import org.bukkit.Location
 import org.bukkit.entity.EntityType
@@ -143,5 +144,25 @@ suspend fun Location.spawnEntityAsync(mcPlugin: MCPlugin, entityType: EntityType
     Scopes.supervisorScope.launch(MCDispatcher(mcPlugin, async = false)) {
         mcPlugin.suspendFunctionSync { world.spawnEntity(this@spawnEntityAsync, entityType) }
     }.join()
+
+}
+
+/**
+ * Gives the location as a legible String.
+ * @return String
+ */
+fun Location.toLegibleString(): String =
+    "${this.world.name};${this.x};${this.y};${this.z};${this.yaw};${this.pitch}"
+
+/**
+ * Converts a legible Location String to Location.
+ * @return Location
+ */
+fun Location.fromLegibleString(string: String): Location {
+
+    val args: List<String> = string.split(";")
+
+    return Location(Bukkit.getWorld(args[0]),args[1].toDouble(),args[2].toDouble(),args[3].toDouble(),
+        args[4].toFloat(), args[5].toFloat())
 
 }
