@@ -31,7 +31,7 @@ class Resource: YamlConfiguration {
      */
     constructor(path: String, fileName: String) {
 
-        this.file = File(path)
+        this.file = File("$path/$fileName")
         if (!file.parentFile.exists()) file.parentFile.mkdirs()
         if (!file.exists()) {
             try {
