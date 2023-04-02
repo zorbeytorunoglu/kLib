@@ -1,13 +1,11 @@
 package com.zorbeytorunoglu.kLib.database
 
-import com.zorbeytorunoglu.kLib.MCPlugin
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
 import java.util.function.Consumer
-
 
 class SQL(val host: String, val port: String, val database:String, val username: String, val password: String) {
 
@@ -79,5 +77,8 @@ class SQL(val host: String, val port: String, val database:String, val username:
             e.printStackTrace()
         }
     }
+
+    fun exists(selectColumn: String, tableName: String, targetColumn: String, targetValue: String): Boolean =
+        getResults("SELECT $selectColumn FROM $tableName WHERE $targetColumn = '$targetValue'")?.next() ?: false
 
 }
