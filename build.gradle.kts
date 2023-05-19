@@ -1,14 +1,12 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    kotlin("jvm") version "1.8.0"
+    kotlin("jvm") version "1.8.10"
     id("java")
     `maven-publish`
     id ("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
 group = "com.zorbeytorunoglu"
-version = "0.0.4"
+version = "0.0.5"
 
 repositories {
     mavenCentral()
@@ -44,7 +42,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "com.zorbeytorunoglu"
             artifactId = "kLib"
-            version = "0.0.3"
+            version = "0.0.5"
 
             from(components["java"])
         }
