@@ -263,3 +263,8 @@ fun Player.getBlockBelow(): Block = this.location.subtract(0.0, 1.0, 0.0).block
 fun Player.kill() {
     player.health = 0.0
 }
+
+fun Player.ejectPassengers() {
+    if (player.vehicle != null) player.vehicle.eject();
+    player.eject();
+}
