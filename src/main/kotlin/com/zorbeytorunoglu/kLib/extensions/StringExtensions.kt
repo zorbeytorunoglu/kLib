@@ -1,7 +1,9 @@
 package com.zorbeytorunoglu.kLib.extensions
 
 import org.apache.maven.artifact.versioning.ComparableVersion
+import org.bukkit.Bukkit
 import org.bukkit.ChatColor
+import org.bukkit.Location
 import java.security.MessageDigest
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -179,3 +181,13 @@ fun String.isVersionGreaterThan(version: String): Boolean = (ComparableVersion(t
  * @return Boolean
  */
 fun String.isVersionLessThan(version: String): Boolean = (ComparableVersion(this) < ComparableVersion(version))
+
+fun String.fromLegibleString(string: String): Location {
+
+    val args: List<String> = string.split(";")
+
+    return Location(
+        Bukkit.getWorld(args[0]),args[1].toDouble(),args[2].toDouble(),args[3].toDouble(),
+        args[4].toFloat(), args[5].toFloat())
+
+}
