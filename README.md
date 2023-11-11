@@ -43,7 +43,7 @@ Kotlin "stdlib" and Coroutines are already implemented. So, if you have "kLib" i
     <dependency>
         <groupId>org.jetbrains.kotlinx</groupId>
         <artifactId>kotlinx-coroutines-core</artifactId>
-        <version>1.6.4</version>
+        <version>1.7.3</version>
         <type>pom</type>
         <scope>provided</scope>
     </dependency>
@@ -52,7 +52,7 @@ Kotlin "stdlib" and Coroutines are already implemented. So, if you have "kLib" i
     <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-stdlib</artifactId>
-        <version>1.8.0</version>
+        <version>1.9.20</version>
         <scope>provided</scope>
     </dependency>
 
@@ -92,13 +92,13 @@ dependencies {
     compileOnly 'com.github.zorbeytorunoglu:kLib:[LATEST_VERSION_HERE]'
 
     // "kotlin-stdlib" also already implemented in "kLib", can be compiled only
-    compileOnly 'org.jetbrains.kotlin:kotlin-stdlib:1.8.0'
+    compileOnly 'org.jetbrains.kotlin:kotlin-stdlib:1.9.20'
 
     // Coroutine is needed for suspending functions and already implemented in "kLib", can be compiled only
-    compileOnly 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    compileOnly 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
 
     // Spigot API
-    compileOnly 'org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT'
     
 }
 ```
@@ -125,16 +125,16 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.github.zorbeytorunoglu:kLib:[LATEST_VERSION_HERE]]")
+    compileOnly("com.github.zorbeytorunoglu:kLib:[LATEST_VERSION_HERE]")
     
     // Coroutine is needed for suspending functions and already implemented in "kLib", can be compiled only
-    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     
     // "kotlin-stdlib" also already implemented in "kLib", can be compiled only
-    compileOnly("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
+    compileOnly("org.jetbrains.kotlin:kotlin-stdlib:1.9.20")
     
     // SpigotAPI
-    compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
 }
 ```
 
