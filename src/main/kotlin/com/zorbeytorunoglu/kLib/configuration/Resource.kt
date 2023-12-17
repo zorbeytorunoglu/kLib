@@ -44,6 +44,20 @@ class Resource: YamlConfiguration {
         }
     }
 
+    constructor(file: File) {
+        this.file = file
+        if (!file.parentFile.exists()) file.parentFile.mkdirs()
+        if (!file.exists()) {
+            try {
+                javaClass.getResourceAsStream("/${file.name}").use {
+                        `in` -> `in`?.let { Files.copy(it, file.toPath()) }
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
     /**
      * Loads the file.
      * @return Resource object.
