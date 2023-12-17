@@ -1,5 +1,5 @@
 name: kLib
-version: 0.0.3
+version: 0.0.8
 api-version: 1.13
 main: com.zorbeytorunoglu.kLib.MCPlugin
 author: thelegend
