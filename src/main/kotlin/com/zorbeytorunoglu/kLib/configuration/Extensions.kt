@@ -2,6 +2,7 @@ package com.zorbeytorunoglu.kLib.configuration
 
 import com.zorbeytorunoglu.kLib.MCPlugin
 import org.bukkit.configuration.file.YamlConfiguration
+import java.io.File
 
 /**
  * Creates a file in plugin's data folder or copies if a file with the same name exists in resources.
@@ -25,3 +26,5 @@ fun MCPlugin.createLoadYamlResource(fileName: String): YamlConfiguration =
  * @return Resource object.
  */
 fun MCPlugin.createFileWithPath(path: String, fileName: String): Resource = Resource(path, fileName)
+
+fun MCPlugin.createResource(file: File): Resource = Resource(file)
